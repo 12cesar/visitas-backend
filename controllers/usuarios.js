@@ -50,7 +50,8 @@ const putUsuario = async(req= request, res = response)=>{
     })
 }
 const unBlockUsuario =async(req= request, res = response)=>{
-    const {id, unblock} = req.query;
+    const {id} = req.params;
+    const {unblock} = req.query;
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: unblock}, {new:true})
     res.json({
         ok:true,
