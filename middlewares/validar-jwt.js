@@ -28,6 +28,11 @@ const validarJWT =async (req= request, res = response, next)=>{
                 msg: 'Token no valido - usuario con estado : false'
             })
         }
+        if (usuario.rol !== 'ADMIN_ROLE') {
+            return res.status(401).json({
+                msg: 'Token no valido - usuario no es administrador'
+            })
+        }
         req.usuarioToken = usuario;
         console.log(usuario);
         next();

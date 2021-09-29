@@ -8,11 +8,9 @@ const UsuarioSchema = new Schema({
     },
     usuario:{
         type: String,
-        required:[true, 'El usuario es obligatorio']
     },
     password:{
         type: String,
-        required:[true, 'El usuario es obligatorio']
     },
     img:{
         type: String,
@@ -21,7 +19,7 @@ const UsuarioSchema = new Schema({
         type: String,
         required: true,
         default: 'USER_ROLE',
-        enum: ['ADMIN_ROLE', 'USER_ROLE']
+        enum: ['ADMIN_ROLE', 'CHOFER_ROLE']
     },
     estado: {
         type: Boolean,
