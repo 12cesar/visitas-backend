@@ -2,6 +2,10 @@
 const Usuario = require('../models/usuario');
 const Role = require('../models/role');
 const Tacho = require('../models/tacho');
+const Alerta = require('../models/alerta');
+const Anuncio = require('../models/anuncio');
+
+
 const esRoleValido = async (rol = '') => {
     const existeRol = await Role.findOne({ rol });
     if (!existeRol) {
@@ -47,6 +51,18 @@ const esTachoIdValido = async (id)=>{
         throw new Error(`El id ${id} no existe en la base de datos`);
     }
 }
+const esAlertaIdValido = async(id) =>{
+    const alerta = await Alerta.findById(id);
+    if (!alerta) {
+        throw new Error(`El id ${id} no existe en la base de datos`);
+    }
+}
+const esAnuncioIdValido = async(id)=>{
+    const anuncio = await Anuncio.findById(id);
+    if (!anuncio) {
+        throw new Error(`El id ${id} no existe en la base de datos`);
+    }
+}
 module.exports = {
     esRoleValido,
     esUsuarioValido,
@@ -54,5 +70,7 @@ module.exports = {
     esUsuarioValidoUser,
     coleccionesPermitidas,
     esTachoNombreValido,
-    esTachoIdValido
+    esTachoIdValido,
+    esAlertaIdValido,
+    esAnuncioIdValido
 }
