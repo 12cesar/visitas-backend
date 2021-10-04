@@ -6,6 +6,7 @@ const { validarCampos, validarJWT } = require('../middlewares');;
 const router = new Router();
 
 router.get('/', getAlertas);
+
 router.get('/:id',[
     check('id', 'No es un id valido').isMongoId(),
     check('id').custom(esAlertaIdValido),

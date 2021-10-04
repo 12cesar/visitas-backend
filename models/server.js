@@ -11,6 +11,7 @@ class Server{
         this.tachosPath = '/api/tachos';
         this.alertaPath = '/api/alertas';
         this.anuncioPath = '/api/anuncios';
+        this.pruebaPath = '/api/pruebas';
         //Conectar Base de datos
         this.conectarDB();
         // Middlewares
@@ -35,6 +36,7 @@ class Server{
         this.app.use(this.authPath, require('../routes/auth'));
         this.app.use(this.tachosPath, require('../routes/tachos'));
         this.app.use(this.anuncioPath, require('../routes/anuncios'));
+        this.app.use(this.pruebaPath, require('../routes/prueba'));
     }
     listen(){
         this.app.listen(this.port, ()=>{
