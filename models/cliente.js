@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const ClienteSchema = new Schema({
     dni:{
-        type: Number,
+        type: String,
         required:[true, 'El dni es obligatorio']
     },
     nombre:{
@@ -13,11 +13,18 @@ const ClienteSchema = new Schema({
         type:String,
         required:[true, 'La direccion es obligatoria']
     },
+    tipo:{
+        type:String
+    },
     estado:{
         type:Boolean,
         default: true
     }
 });
+ClienteSchema.methods.toJSON = function(){
+    const {__v, ...cliente}= this.toObject();
+    return cliente;
+}
 
 
 
