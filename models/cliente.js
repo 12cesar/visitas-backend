@@ -16,6 +16,9 @@ const ClienteSchema = new Schema({
     tipo:{
         type:String
     },
+    img:{
+        type:String
+    },
     estado:{
         type:Boolean,
         default: true
