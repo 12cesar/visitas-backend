@@ -9,20 +9,33 @@ const postLogin = async(req = request, res=response)=>{
     if (!user) {
         return res.json({
             ok:false,
-            msg:'Usuario no existe, converse con el administrador'
+            msg:'Usuario no existe, converse con el administrador',
+            user:null,
+            token:null
+        })
+    }
+    if (!user.estado) {
+        return res.json({
+            ok:false,
+            msg:'Usuario bloqueado, converse con el administrador',
+            user:null,
+            token:null
         })
     }
     const validarPassword = bcryptjs.compareSync(password, user.password)
     if (!validarPassword) {
         return res.json({
             ok:false,
-            msg:'Contraseña de no valida'
+            msg:'Contraseña no valida',
+            user:null,
+            token:null
         })
         
     }
     const token = await generarToken.generarJWT(user._id);
     res.json({
         ok:true,
+        msg:'Login correcto',
         user,
         token
     })
