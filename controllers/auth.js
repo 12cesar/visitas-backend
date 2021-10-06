@@ -4,15 +4,15 @@ const bcryptjs = require("bcryptjs");
 const generarToken = require('../helpers/generar-jwt');
 
 const postLogin = async(req = request, res=response)=>{
-    const {usuario, password} = req.body;
-    const user = await Usuario.findOne({usuario});
+    const data = req.body;
+    const user = await Usuario.findOne({usuario:data.usuario});
     if (!user) {
         return res.json({
             ok:false,
             msg:'Usuario no existe, converse con el administrador'
         })
     }
-    const validarPassword = bcryptjs.compareSync(password, user.password)
+    const validarPassword = bcryptjs.compareSync(data.password, user.password)
     if (!validarPassword) {
         return res.json({
             ok:false,
