@@ -1,7 +1,6 @@
 
 const Usuario = require('../models/usuario');
 const Role = require('../models/role');
-const Tacho = require('../models/tacho');
 const Alerta = require('../models/alerta');
 const Anuncio = require('../models/anuncio');
 const Cliente = require('../models/cliente');
@@ -38,19 +37,6 @@ const coleccionesPermitidas = (coleccion='', colecciones=[]) => {
     }
     return true;
 }
-const esTachoNombreValido = async(nombre='')=>{
-    const name = nombre.toUpperCase();
-    const tacho = await Tacho.findOne({nombre: name});
-    if (tacho) {
-        throw new Error(`El nombre ${name} ya existe en la base de datos`);
-    }
-}
-const esTachoIdValido = async (id)=>{
-    const tacho = await Tacho.findById(id);
-    if (!tacho) {
-        throw new Error(`El id ${id} no existe en la base de datos`);
-    }
-}
 const esAlertaIdValido = async(id) =>{
     const alerta = await Alerta.findById(id);
     if (!alerta) {
@@ -75,8 +61,6 @@ module.exports = {
     esNombreUsuarioValido,
     esUsuarioValidoUser,
     coleccionesPermitidas,
-    esTachoNombreValido,
-    esTachoIdValido,
     esAlertaIdValido,
     esAnuncioIdValido,
     esClienteIdValido

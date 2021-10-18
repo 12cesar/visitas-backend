@@ -58,7 +58,6 @@ class Server{
     routes(){
         this.app.use(this.usuariosPath, require('../routes/usuarios'));
         this.app.use(this.authPath, require('../routes/auth'));
-        this.app.use(this.tachosPath, require('../routes/tachos'));
         this.app.use(this.anuncioPath, require('../routes/anuncios'));
         this.app.use(this.clientePath, require('../routes/clientes'));
         this.app.use(this.pruebaPath, require('../routes/prueba'));
