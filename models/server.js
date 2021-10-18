@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const { dbConnection } = require('../database/config');
 const fileUpload = require("express-fileupload");
+const http = require('http');
+const socketIO = require('socket.io');
 class Server{
 
     constructor(){
@@ -14,9 +16,17 @@ class Server{
         this.anuncioPath = '/api/anuncios';
         this.clientePath = '/api/clientes';
         this.pruebaPath = '/api/pruebas';
-        
+        this.httpServer = new http.Server(this.app);
+        this.io = require('socket.io')(this.httpServer,{
+            cors: {
+                origin: true,
+                credentials: true
+              },            
+          });
         //Conectar Base de datos
         this.conectarDB();
+        //Socket
+        this.escucharSockets();
         // Middlewares
         this.middlewares();
         // Rutas de mi aplicacion
@@ -24,6 +34,10 @@ class Server{
     }
     async conectarDB(){
         await dbConnection();
+    }
+    escucharSockets(){
+        
+        this.io.on('connection', cliente =>{});
     }
     middlewares(){
         this.app.use(
@@ -50,7 +64,7 @@ class Server{
         this.app.use(this.pruebaPath, require('../routes/prueba'));
     }
     listen(){
-        this.app.listen(this.port, ()=>{
+        this.httpServer.listen(this.port, ()=>{
             console.log(`Escuchando el puerto ${this.port}: http://localhost:${this.port}`);
         });
     }
