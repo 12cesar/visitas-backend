@@ -1,13 +1,16 @@
 const { request, response } = require("express")
 const { obtenerDni } = require("../helpers")
 const Cliente = require('../models/cliente');
-
+const bcryptjs = require("bcryptjs");
+const generarToken = require('../helpers/generar-jwt');
 const getClientes = async(req=request, res=response)=>{
     const {unblock} = req.query;
     const cliente = await Cliente.find({estado:unblock});
     res.json({
         ok:true,
-        cliente
+        msg:'Clientes mostrado con exito',
+        cliente,
+        token:null
     })
 }
 const getCliente = async(req=request, res=response)=>{
@@ -15,11 +18,13 @@ const getCliente = async(req=request, res=response)=>{
     const cliente = await Cliente.findById(id);
     res.json({
         ok:true,
-        cliente
+        msg:'Cliente mostrado con exito',
+        cliente,
+        token:null
     })
 }
 const postCliente = async(req=request, res=response)=>{
-    const {dni, nombre, ...data} = req.body;
+    const {dni, nombre, password, ...data} = req.body;
     const resp = await obtenerDni(dni);
     if (!resp.success && resp.msg !== 'Datos de menor de edad no disponibles en tu plan') {
         res.json({
@@ -36,21 +41,19 @@ const postCliente = async(req=request, res=response)=>{
         data.nombre = resp.data.nombre_completo
         data.tipo = 'adulto';
     }
-    const datos = await Cliente.findOne({dni});
-    if (datos) {
-        return res.json({
-            ok:true,
-            msg:'Cliente registrado con exito',
-            cliente: datos
-        })
-    }
+    
+    const salt = bcryptjs.genSaltSync();
     data.dni = dni;
     const cliente = new Cliente(data);
+    cliente.password = bcryptjs.hashSync(password, salt);
+    const token = await generarToken.generarJWT(cliente._id);
     await cliente.save();
+
     res.json({
         ok:true,
         msg:'Cliente registrado con exito',
-        cliente
+        cliente,
+        token
     })
 }
 const putCliente = async(req=request, res=response)=>{
@@ -77,7 +80,8 @@ const putCliente = async(req=request, res=response)=>{
     res.json({
         ok:true,
         msg:'Cliente editado con exito',
-        cliente
+        cliente,
+        token:null
     })
 }
 const unblockCliente = async(req=request, res=response)=>{
@@ -87,7 +91,8 @@ const unblockCliente = async(req=request, res=response)=>{
     res.json({
         ok:true,
         msg: cliente.estado ? 'Cliente desbloqueado con exito' : 'Cliente bloqueado con exito',
-        cliente
+        cliente,
+        token:null
     })
 }
 

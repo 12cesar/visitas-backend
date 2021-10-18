@@ -15,6 +15,7 @@ class Server{
         this.alertaPath = '/api/alertas';
         this.anuncioPath = '/api/anuncios';
         this.clientePath = '/api/clientes';
+        this.vehiculoPath = '/api/vehiculos';
         this.pruebaPath = '/api/pruebas';
         this.httpServer = new http.Server(this.app);
         this.io = require('socket.io')(this.httpServer,{
@@ -60,6 +61,7 @@ class Server{
         this.app.use(this.authPath, require('../routes/auth'));
         this.app.use(this.anuncioPath, require('../routes/anuncios'));
         this.app.use(this.clientePath, require('../routes/clientes'));
+        this.app.use(this.vehiculoPath, require('../routes/vehiculos'));
         this.app.use(this.pruebaPath, require('../routes/prueba'));
     }
     listen(){

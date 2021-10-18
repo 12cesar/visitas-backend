@@ -9,9 +9,9 @@ const ClienteSchema = new Schema({
         type: String,
         required:[true, 'El nombre es obligatorio']
     },
-    direccion:{
-        type:String,
-        required:[true, 'La direccion es obligatoria']
+    password:{
+        type: String,
+        required:[true, 'El password es obligotorio']
     },
     tipo:{
         type:String
