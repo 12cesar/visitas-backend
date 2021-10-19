@@ -5,7 +5,7 @@ const { coleccionesPermitidas } = require("../helpers/db-validators");
 const {validarCampos} = require('../middlewares/validar-campos')
 const router = new Router();
 
-router.post('/:coleccion',[
+router.post('/login/:coleccion',[
     validarCampos
 ], postLogin);
 
