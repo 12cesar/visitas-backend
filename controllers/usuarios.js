@@ -8,6 +8,7 @@ const getUsuarios = async(req= request, res = response)=>{
     const usuario = await Usuario.find({estado:unblock})
     res.json({
         ok:true,
+        msg:'Usuarios mostrado con exito',
         usuario,
     })
 }
@@ -16,6 +17,7 @@ const getUsuario = async(req= request, res = response)=>{
     const usuario = await Usuario.findById(id);
     res.json({
         ok:true,
+        msg:'Usuario mostrado con exito',
         usuario
     })
 }
@@ -30,6 +32,7 @@ const postUsuario = async(req= request, res = response)=>{
     await usuario.save();
     res.json({
         ok:true,
+        msg:'Usuario creado con exito',
         usuario
     })
 }
@@ -46,6 +49,7 @@ const putUsuario = async(req= request, res = response)=>{
     const usuario = await Usuario.findByIdAndUpdate(id, data, {new:true});
     res.json({
         ok:true,
+        msg:'Usuario editado con exito',
         usuario
     })
 }
@@ -55,6 +59,7 @@ const unBlockUsuario =async(req= request, res = response)=>{
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: unblock}, {new:true})
     res.json({
         ok:true,
+        msg:usuario.estado ? 'Usuario desbloqueado correctamente' : 'Usuario bloqueado correctamente',
         usuario
     })
 }
