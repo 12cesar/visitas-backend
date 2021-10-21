@@ -5,6 +5,9 @@ const Alerta = require('../models/alerta');
 const Anuncio = require('../models/anuncio');
 const Cliente = require('../models/cliente');
 const Vehiculo = require('../models/vehiculo');
+const Mensaje = require('../models/mensaje');
+const Conduccion = require('../models/conduccion');
+
 
 const esRoleValido = async (rol = '') => {
     const existeRol = await Role.findOne({ rol });
@@ -74,6 +77,18 @@ const esVehiculoNombreValido = async(nombre ='')=>{
         throw new Error(`El vehiculo con el nombre ${nombre} ya existe en la base de datos`);
     } 
 }
+const esMensajeIdValido = async(id)=>{
+    const mensaje = await Mensaje.findOne({nombre});
+    if (!mensaje) {
+        throw new Error(`El id ${id} no existe en la base de datos`);
+    } 
+}
+const esConduccionIdValido = async(id)=>{
+    const conduccion = await Conduccion.findOne({nombre});
+    if (!conduccion) {
+        throw new Error(`El id ${id} no existe en la base de datos`);
+    } 
+}
 module.exports = {
     esRoleValido,
     esUsuarioValido,
@@ -85,5 +100,7 @@ module.exports = {
     esClienteIdValido,
     esClienteDniValido,
     esVehiculoIdValido,
-    esVehiculoNombreValido
+    esVehiculoNombreValido,
+    esMensajeIdValido,
+    esConduccionIdValido
 }

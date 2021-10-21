@@ -16,6 +16,8 @@ class Server{
         this.anuncioPath = '/api/anuncios';
         this.clientePath = '/api/clientes';
         this.vehiculoPath = '/api/vehiculos';
+        this.conduccionPath = '/api/conduccion';
+        this.mensajePath = '/api/mensajes';
         this.rolPath = '/api/role';
         this.pruebaPath = '/api/pruebas';
         this.httpServer = new http.Server(this.app);
@@ -63,6 +65,8 @@ class Server{
         this.app.use(this.anuncioPath, require('../routes/anuncios'));
         this.app.use(this.clientePath, require('../routes/clientes'));
         this.app.use(this.vehiculoPath, require('../routes/vehiculos'));
+        this.app.use(this.conduccionPath, require('../routes/conduccion'));
+        this.app.use(this.mensajePath, require('../routes/mensajes'));
         this.app.use(this.rolPath, require('../routes/roles'));
         this.app.use(this.pruebaPath, require('../routes/prueba'));
     }
