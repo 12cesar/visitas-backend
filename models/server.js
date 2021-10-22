@@ -19,6 +19,7 @@ class Server{
         this.conduccionPath = '/api/conduccion';
         this.mensajePath = '/api/mensajes';
         this.rolPath = '/api/role';
+        this.graficaPath = '/api/graficas';
         this.pruebaPath = '/api/pruebas';
         this.httpServer = new http.Server(this.app);
         this.io = require('socket.io')(this.httpServer,{
@@ -68,6 +69,7 @@ class Server{
         this.app.use(this.conduccionPath, require('../routes/conduccion'));
         this.app.use(this.mensajePath, require('../routes/mensajes'));
         this.app.use(this.rolPath, require('../routes/roles'));
+        this.app.use(this.graficaPath, require('../routes/graficas'));
         this.app.use(this.pruebaPath, require('../routes/prueba'));
     }
     listen(){

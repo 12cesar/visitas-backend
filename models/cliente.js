@@ -16,6 +16,12 @@ const ClienteSchema = new Schema({
     tipo:{
         type:String
     },
+    mes:{
+        type: Number
+    },
+    ano:{
+        type: Number
+    },
     img:{
         type:String
     },

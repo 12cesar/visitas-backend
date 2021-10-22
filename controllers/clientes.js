@@ -3,6 +3,7 @@ const { obtenerDni } = require("../helpers")
 const Cliente = require('../models/cliente');
 const bcryptjs = require("bcryptjs");
 const generarToken = require('../helpers/generar-jwt');
+
 const getClientes = async(req=request, res=response)=>{
     const {unblock} = req.query;
     const cliente = await Cliente.find({estado:unblock});
@@ -41,11 +42,15 @@ const postCliente = async(req=request, res=response)=>{
         data.nombre = resp.data.nombre_completo
         data.tipo = 'adulto';
     }
-    
+    const fecha = new Date();
+    const mes = fecha.getMonth();
+    const ano = fecha.getFullYear();
     const salt = bcryptjs.genSaltSync();
     data.dni = dni;
     const cliente = new Cliente(data);
     cliente.password = bcryptjs.hashSync(password, salt);
+    cliente.mes = mes;
+    cliente.ano=ano;
     const token = await generarToken.generarJWT(cliente._id);
     await cliente.save();
 
