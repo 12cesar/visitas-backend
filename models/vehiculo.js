@@ -17,7 +17,7 @@ const VehiculoSchema = new Schema({
         type: String,
         required:[true, 'El color es obligatorio']
     },
-    año:{
+    ano:{
         type: String,
         required:[true, 'El año es obligatorio']
     },
