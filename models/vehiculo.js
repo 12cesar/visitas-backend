@@ -9,6 +9,10 @@ const VehiculoSchema = new Schema({
         type: String,
         required:[true, 'La marca es obligatorio']
     },
+    placa:{
+        type: String,
+        required:[true, 'La placa es obligatorio']
+    },
     color:{
         type: String,
         required:[true, 'El color es obligatorio']

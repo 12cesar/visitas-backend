@@ -1,7 +1,7 @@
 const { Router, request, response } = require("express");
 const { check } = require("express-validator");
 const { getVehiculos, postVehiculo, putVehiculo, unblockVehiculo, getVehiculo } = require("../controllers/vehiculos");
-const { esVehiculoIdValido, esVehiculoNombreValido } = require("../helpers");
+const { esVehiculoIdValido, esVehiculoNombreValido, esVehiculoPlacaValido } = require("../helpers");
 const { validarCampos, validarJWT } = require("../middlewares");
 
 
@@ -17,6 +17,7 @@ router.get('/:id',[
 router.post('/',[
     validarJWT,
     check('nombre').custom(esVehiculoNombreValido),
+    check('placa').custom(esVehiculoPlacaValido),
     validarCampos
 ], postVehiculo)
 router.put('/:id',[

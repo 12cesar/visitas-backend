@@ -77,6 +77,12 @@ const esVehiculoNombreValido = async(nombre ='')=>{
         throw new Error(`El vehiculo con el nombre ${nombre} ya existe en la base de datos`);
     } 
 }
+const esVehiculoPlacaValido = async(placa ='')=>{
+    const vehiculo = await Vehiculo.findOne({placa});
+    if (vehiculo) {
+        throw new Error(`El vehiculo con la placa ${placa} ya existe en la base de datos`);
+    } 
+}
 const esMensajeIdValido = async(id)=>{
     const mensaje = await Mensaje.findOne({nombre});
     if (!mensaje) {
@@ -102,5 +108,6 @@ module.exports = {
     esVehiculoIdValido,
     esVehiculoNombreValido,
     esMensajeIdValido,
-    esConduccionIdValido
+    esConduccionIdValido,
+    esVehiculoPlacaValido
 }
