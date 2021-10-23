@@ -41,6 +41,7 @@ const putVehiculo = async(req=request, res=response)=>{
     const vehiculo = await Vehiculo.findByIdAndUpdate(id, data, {new:true});
     res.json({
         ok:true,
+        msg:'Vehiculo editado con exito',
         vehiculo
     })
 }
