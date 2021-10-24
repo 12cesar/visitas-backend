@@ -84,7 +84,7 @@ const esVehiculoPlacaValido = async(placa ='')=>{
     } 
 }
 const esMensajeIdValido = async(id)=>{
-    const mensaje = await Mensaje.findOne({nombre});
+    const mensaje = await Mensaje.findById(id);
     if (!mensaje) {
         throw new Error(`El id ${id} no existe en la base de datos`);
     } 
