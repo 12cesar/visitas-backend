@@ -48,6 +48,7 @@ const putAnuncio = async(req =request, res=response)=>{
     const anuncio = await Anuncio.findByIdAndUpdate(id, data, {new:true});
     res.json({
         ok:true,
+        msg:'Anuncio editado con exito',
         anuncio
     })
 }
