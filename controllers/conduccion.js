@@ -33,7 +33,7 @@ const postConduccion = async(req=request, res=response)=>{
 const putConduccion = async(req=request, res=response)=>{
     const {id} = req.params;
     const data = req.body;
-    const conduccion = await Conduccion.findById(id, data, {new:true})
+    const conduccion = await Conduccion.findByIdAndUpdate(id, data, {new:true})
     res.json({
         ok:true,
         msg:'Relacion editada con exito',
