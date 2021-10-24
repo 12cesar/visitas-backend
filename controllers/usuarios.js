@@ -12,6 +12,14 @@ const getUsuarios = async(req= request, res = response)=>{
         usuario,
     })
 }
+const getUsuarioChofer = async(req= request, res = response)=>{
+    const usuario = await Usuario.find({$and:[{estado:true},{rol:'CHOFER_ROLE'}]})
+    res.json({
+        ok:true,
+        msg:'Chofer mostrado con exito',
+        usuario,
+    })
+}
 const getUsuario = async(req= request, res = response)=>{
     const {id} = req.params;
     const usuario = await Usuario.findById(id);
@@ -66,6 +74,7 @@ const unBlockUsuario =async(req= request, res = response)=>{
 module.exports = {
     getUsuarios,
     getUsuario,
+    getUsuarioChofer,
     postUsuario,
     putUsuario,
     unBlockUsuario,
