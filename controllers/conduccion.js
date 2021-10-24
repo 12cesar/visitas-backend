@@ -4,7 +4,7 @@ const Conduccion = require('../models/conduccion');
 const getConducciones = async(req=request, res=response)=>{
     const conduccion = await Conduccion.find()
                                         .populate('chofer', 'nombre')
-                                        .populate('vehiculo', 'nombre')
+                                        .populate('vehiculo')
     res.json({
         ok:true,
         conduccion
