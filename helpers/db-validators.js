@@ -90,7 +90,7 @@ const esMensajeIdValido = async(id)=>{
     } 
 }
 const esConduccionIdValido = async(id)=>{
-    const conduccion = await Conduccion.findById({id});
+    const conduccion = await Conduccion.findById(id);
     if (!conduccion) {
         throw new Error(`El id ${id} no existe en la base de datos`);
     } 

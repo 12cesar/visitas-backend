@@ -7,12 +7,17 @@ const getConducciones = async(req=request, res=response)=>{
                                         .populate('vehiculo')
     res.json({
         ok:true,
+        msg:'Conducciones mostrada con exito',
         conduccion
     })
 }
 const getConduccion = async(req=request, res=response)=>{
+    const {id} =req.params;
+    const conduccion = await Conduccion.findById(id);
     res.json({
-        ok:true
+        ok:true,
+        msg:'Conduccion mostrado con exito',
+        conduccion
     })
 }
 const postConduccion = async(req=request, res=response)=>{
