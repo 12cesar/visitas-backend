@@ -13,9 +13,6 @@ const MensajeSchema = new Schema({
     fecha:{
         type: String
     },
-    año:{
-        type:String
-    },
     usuario:{
         type:Schema.Types.ObjectId,
         ref:'Usuario',
