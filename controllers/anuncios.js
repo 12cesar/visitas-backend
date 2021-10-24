@@ -25,9 +25,13 @@ const getAnuncio = async(req =request, res=response)=>{
 const postAnuncio = async(req =request, res=response)=>{
     const {usuario, ...data} = req.body;
     const user = req.usuarioToken;
-
+    const date = new Date();
+    const mes = String(date.getMonth());
+    const dia = String(new Date().getDate());
+    const fecha = `${(dia.length===1 ? `0${dia}`: dia)}-${(mes.length===1 ? `0${mes}`: mes)}-${date.getFullYear()}`;
     const anuncio = new Anuncio(data);
     anuncio.usuario = user._id;
+    anuncio.fecha = fecha;
     await anuncio.save();
     res.json({
         ok:true,

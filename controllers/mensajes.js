@@ -27,7 +27,7 @@ const postMensaje= async(req=request, res= response)=>{
     const date = new Date();
     const user = req.usuarioToken;
     const mes = String(date.getMonth());
-    const dia = String(date.getDay())
+    const dia = String(date.getDate())
     const fecha = `${(dia.length===1 ? `0${dia}`: dia)}-${(mes.length===1 ? `0${mes}`: mes)}-${date.getFullYear()}`;
     data.titulo = titulo.toUpperCase();
     data.fecha = fecha;
