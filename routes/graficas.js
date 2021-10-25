@@ -5,8 +5,12 @@ const Mensaje = require('../models/mensaje');
 const Multa = require('../models/multa');
 const Anuncio = require('../models/anuncio');
 const ClienteGrafica = require("../classes/cliente-grafica");
+const Datos = require("../classes/datos");
 
+const datos= new Datos();
 const router = Router();
+
+
 const graficalineal = new ClienteGrafica();
 router.get('/', async(req= request, res=response)=>{
     
@@ -24,32 +28,29 @@ router.get('/', async(req= request, res=response)=>{
     })
 });
 router.get('/list/clientes', async(req= request, res=response)=>{
+    datos.resetCliente();
     const cliente=await Cliente.count();
-    res.json({
-        ok:true,
-        cliente
-    });
+    datos.agregarCliente(cliente);
+    res.json(datos.getClientes());
 });
 router.get('/list/mensajes', async(req= request, res=response)=>{
+    datos.resetMensajes();
     const mensajes=await Mensaje.count();
-    res.json({
-        ok:true,
-        mensajes
-    });
+    datos.agregarMensajes(mensajes);
+    res.json(datos.getMensajes());
 });
 router.get('/list/multas', async(req= request, res=response)=>{
+    datos.resetMultas();
     const multa=await Multa.count();
-    res.json({
-        ok:true,
-        multa
-    });
+    datos.agregarMultas(multa);
+
+    res.json(datos.getMultas());
 });
 router.get('/list/anuncios', async(req= request, res=response)=>{
+    datos.resetAnuncios()
     const anuncio=await Anuncio.count();
-    res.json({
-        ok:true,
-        anuncio
-    });
+    datos.agregarAnuncios(anuncio);
+    res.json(datos.getAnuncios());
 });
 
 
