@@ -24,9 +24,15 @@ const mapaSockets = ( cliente= Socket, io= socketIO.Server ) => {
     })
 }
 
+//Evento mensajes
 
+const mensajesSockets= ( cliente= Socket, io= socketIO.Server ) => {
 
-
+    cliente.on('escuchar-mensaje', (payload={})=>{
+        console.log(payload);
+        cliente.broadcast.emit('escuchar-mensaje', payload);
+    })
+}
 const conectarCliente = ( cliente= Socket, io= socketIO.Server ) => {
 
     const usuario = new Usuario( cliente.id );
@@ -40,5 +46,6 @@ const conectarCliente = ( cliente= Socket, io= socketIO.Server ) => {
 module.exports ={
     conectarCliente,
     mapaSockets,
+    mensajesSockets,
     mapa
 }

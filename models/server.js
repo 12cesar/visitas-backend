@@ -4,7 +4,7 @@ const { dbConnection } = require('../database/config');
 const fileUpload = require("express-fileupload");
 const http = require('http');
 const socketIO = require('socket.io');
-const {conectarCliente, mapaSockets} = require('../sockets/sockets')
+const {conectarCliente, mapaSockets, mensajesSockets} = require('../sockets/sockets')
 class Server{
     static _intance= Server;
     io= socketIO.Server;
@@ -53,6 +53,8 @@ class Server{
             conectarCliente( cliente, this.io );
             //Configuracion de mapas
             mapaSockets( cliente, this.io );
+            // Configuracion de mensajes
+            mensajesSockets(cliente, this.io);
         });
         
     }
