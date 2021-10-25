@@ -6,7 +6,8 @@ const http = require('http');
 const socketIO = require('socket.io');
 const {conectarCliente, mapaSockets} = require('../sockets/sockets')
 class Server{
-
+    static _intance= Server;
+    io= socketIO.Server;
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
@@ -39,6 +40,9 @@ class Server{
         this.middlewares();
         // Rutas de mi aplicacion
         this.routes();
+    }
+    static get instance(){
+        return this._intance || (this._intance=new this());
     }
     async conectarDB(){
         await dbConnection();

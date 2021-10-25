@@ -3,6 +3,11 @@ const { obtenerDni } = require("../helpers")
 const Cliente = require('../models/cliente');
 const bcryptjs = require("bcryptjs");
 const generarToken = require('../helpers/generar-jwt');
+const ClienteGrafica = require("../classes/cliente-grafica");
+const Server = require("../models/server");
+
+const grafica = new ClienteGrafica();
+
 
 const getClientes = async(req=request, res=response)=>{
     const {unblock} = req.query;
@@ -44,16 +49,19 @@ const postCliente = async(req=request, res=response)=>{
     }
     const fecha = new Date();
     const mes = fecha.getMonth();
+    console.log(mes+1);
     const ano = fecha.getFullYear();
     const salt = bcryptjs.genSaltSync();
     data.dni = dni;
     const cliente = new Cliente(data);
     cliente.password = bcryptjs.hashSync(password, salt);
-    cliente.mes = mes;
+    cliente.mes = mes+1;
     cliente.ano=ano;
     const token = await generarToken.generarJWT(cliente._id);
+    grafica.incrementarValor(mes+1, 1);
+    const server = new Server();
+    server.io.emit('cambio-grafica', grafica.getClienteGrafica());
     await cliente.save();
-
     res.json({
         ok:true,
         msg:'Cliente registrado con exito',

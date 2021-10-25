@@ -28,7 +28,7 @@ const postAnuncio = async(req =request, res=response)=>{
     const date = new Date();
     const mes = String(date.getMonth());
     const dia = String(new Date().getDate());
-    const fecha = `${(dia.length===1 ? `0${dia}`: dia)}-${(mes.length===1 ? `0${mes}`: mes)}-${date.getFullYear()}`;
+    const fecha = `${(dia.length===1 ? `0${dia}`: dia)}-${(mes.length===1 ? `${Number(mes)+1}`: Number(mes)+1)}-${date.getFullYear()}`;
     const anuncio = new Anuncio(data);
     anuncio.usuario = user._id;
     anuncio.fecha = fecha;
