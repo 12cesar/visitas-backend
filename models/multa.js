@@ -29,5 +29,8 @@ const MultaSchema = new Schema({
 
 })
 
-
+MultaSchema.methods.toJSON = function(){
+    const {__v, ...multa}= this.toObject();
+    return multa;
+}
 module.exports = model('Multa', MultaSchema)
