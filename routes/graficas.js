@@ -23,11 +23,11 @@ router.get('/', async(req= request, res=response)=>{
         data
     })
 });
-router.get('/list/usuarios', async(req= request, res=response)=>{
-    const usuario=await Usuario.count();
+router.get('/list/clientes', async(req= request, res=response)=>{
+    const cliente=await Cliente.count();
     res.json({
         ok:true,
-        usuario
+        cliente
     });
 });
 router.get('/list/mensajes', async(req= request, res=response)=>{
