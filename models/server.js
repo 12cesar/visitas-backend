@@ -4,6 +4,7 @@ const { dbConnection } = require('../database/config');
 const fileUpload = require("express-fileupload");
 const http = require('http');
 const socketIO = require('socket.io');
+const {conectarCliente} = require('../sockets/sockets')
 class Server{
 
     constructor(){
@@ -19,6 +20,7 @@ class Server{
         this.conduccionPath = '/api/conduccion';
         this.mensajePath = '/api/mensajes';
         this.rolPath = '/api/role';
+        this.ubicacionPath = '/api/ubicacion';
         this.graficaPath = '/api/graficas';
         this.pruebaPath = '/api/pruebas';
         this.httpServer = new http.Server(this.app);
@@ -41,8 +43,11 @@ class Server{
         await dbConnection();
     }
     escucharSockets(){
+        console.log('Escuchando conexiones - sockets');
+        this.io.on('connection', cliente =>{
+            conectarCliente( cliente, this.io );
+        });
         
-        this.io.on('connection', cliente =>{});
     }
     middlewares(){
         this.app.use(
@@ -69,6 +74,7 @@ class Server{
         this.app.use(this.conduccionPath, require('../routes/conduccion'));
         this.app.use(this.mensajePath, require('../routes/mensajes'));
         this.app.use(this.rolPath, require('../routes/roles'));
+        this.app.use(this.ubicacionPath, require('../routes/ubicacion'));
         this.app.use(this.graficaPath, require('../routes/graficas'));
         this.app.use(this.pruebaPath, require('../routes/prueba'));
     }
