@@ -59,7 +59,7 @@ const postCliente = async(req=request, res=response)=>{
     cliente.ano=ano;
     const token = await generarToken.generarJWT(cliente._id);
     grafica.incrementarValor(mes+1, 1);
-    const server = new Server();
+    const server = new Server.instance;
     server.io.emit('cambio-grafica', grafica.getClienteGrafica());
     await cliente.save();
     res.json({
