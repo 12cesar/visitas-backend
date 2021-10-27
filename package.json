@@ -22,7 +22,12 @@
     "fileupload": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
+    "pdfmake": "^0.2.2",
+    "pdfmake-wrapper": "^2.1.2",
     "socket.io": "^4.3.1",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/pdfmake": "^0.1.19"
   }
 }

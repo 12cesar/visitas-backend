@@ -4,6 +4,7 @@ const Mensaje = require('../models/mensaje');
 const getMensajes= async(req=request, res= response)=>{
     const {unblock} = req.query;
     const mensaje = await Mensaje.find({estado:unblock})
+                                    .sort({fecha:-1})
                                     .populate('usuario', 'nombre');
     res.json({
         ok:true,

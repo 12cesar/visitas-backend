@@ -10,8 +10,9 @@ const grafica = new ClienteGrafica();
 
 
 const getClientes = async(req=request, res=response)=>{
-    const {unblock} = req.query;
-    const cliente = await Cliente.find({estado:unblock});
+    const {buscar} = req.query;
+    
+    const cliente = await Cliente.find({$or:[{dni:{$regex:".*"+buscar+"*."}},{tipo:{$regex:".*"+buscar+"*."}},{nombre:{$regex:".*"+buscar+"*."}}]});
     res.json({
         ok:true,
         msg:'Clientes mostrado con exito',

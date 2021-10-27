@@ -4,10 +4,11 @@ const Anuncio = require('../models/anuncio');
 const getAnuncios = async(req =request, res=response)=>{
     const {unblock} = req.query;
     const anuncio = await Anuncio.find({estado:unblock})
+                                    .sort({fecha:-1})
                                     .populate('usuario', 'nombre');
     res.json({
         ok:true,
-        msg:'Anuncios ',
+        msg:'Anuncios mostrado con exito',
         anuncio
     })
 }
@@ -18,6 +19,7 @@ const getAnuncio = async(req =request, res=response)=>{
                                     .populate('usuario', 'nombre');
     res.json({
         ok:true,
+        msg:'Anuncio mostrado con exito',
         anuncio
     })
 }
@@ -58,7 +60,10 @@ const unblockAnuncio = async(req =request, res=response)=>{
     const {id} = req.params;
     const anuncio = await Anuncio.findByIdAndUpdate(id, {estado:unblock}, {new:true});
     res.json({
-        ok:true
+        ok:true,
+        msg: anuncio.estado ? 'Anuncio dessbloqueado con exito' : 'Anuncio bloqueado con exito',
+        anuncio
+
     })
 }
 
