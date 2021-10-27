@@ -11,8 +11,16 @@ const grafica = new ClienteGrafica();
 
 const getClientes = async(req=request, res=response)=>{
     const {buscar} = req.query;
-    
-    const cliente = await Cliente.find({$or:[{dni:{$regex:".*"+buscar+"*."}},{tipo:{$regex:".*"+buscar+"*."}},{nombre:{$regex:".*"+buscar+"*."}}]});
+    if(buscar===''){
+        const cliente = await Cliente.find();
+        return res.json({
+            ok:true,
+            msg:'Clientes mostrado con exito',
+            cliente,
+            token:null
+        })
+    }
+    const cliente = await Cliente.find({$or:[{dni:{$regex:".*"+buscar+"*."}},{tipo:{$regex:".*"+buscar+"*."}},{nombre:{$regex:".*"+buscar.toUpperCase()+"*."}}]});
     res.json({
         ok:true,
         msg:'Clientes mostrado con exito',
