@@ -90,7 +90,18 @@ const postLogin = async (req = request, res = response) => {
       break;
   }
 };
-
+const getLogin = async(req=request, res=response)=>{
+  const user = req.usuarioToken;
+  const x ='x-token'
+  const {token} = req.headers;
+  res.json({
+    ok:true,
+    msg:'Token valido',
+    user,
+    token
+  })
+}
 module.exports = {
   postLogin,
+  getLogin
 };
