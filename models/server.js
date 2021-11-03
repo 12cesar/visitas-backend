@@ -50,6 +50,10 @@ class Server{
     escucharSockets(){
         console.log('Escuchando conexiones - sockets');
         this.io.on('connection', cliente =>{
+            console.log('cliente conectado');
+            cliente.on('conectado',()=>{
+                console.log('cliente conectado');
+            })
             conectarCliente( cliente, this.io );
             //Configuracion de mapas
             mapaSockets( cliente, this.io );
