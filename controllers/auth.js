@@ -92,7 +92,6 @@ const postLogin = async (req = request, res = response) => {
 };
 const getLogin = async(req=request, res=response)=>{
   const user = req.usuarioToken;
-  const x ='x-token'
   const {token} = req.headers;
   res.json({
     ok:true,
