@@ -92,7 +92,7 @@ const postLogin = async (req = request, res = response) => {
 };
 const getLogin = async(req=request, res=response)=>{
   const user = req.usuarioToken;
-  const token = generarToken.generarJWT(user._id);
+  const token = await generarToken.generarJWT(user._id);
   res.json({
     ok:true,
     msg:'Token valido',
