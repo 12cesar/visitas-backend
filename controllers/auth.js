@@ -3,6 +3,7 @@ const Usuario = require("../models/usuario");
 const Cliente = require("../models/cliente");
 const bcryptjs = require("bcryptjs");
 const generarToken = require("../helpers/generar-jwt");
+const Conduccion = require("../models/conduccion");
 
 const postLogin = async (req = request, res = response) => {
   const { coleccion } = req.params;
@@ -10,6 +11,7 @@ const postLogin = async (req = request, res = response) => {
   let usuario;
   let validarPassword;
   let token;
+  let conduccion;
   switch (coleccion) {
     case "usuario":
       usuario = req.body.usuario;
@@ -40,12 +42,27 @@ const postLogin = async (req = request, res = response) => {
           token: null,
         });
       }
+      if (user.rol === 'CHOFER_ROLE') {
+        const conducc = await Conduccion.findOne({chofer:user._id})
+                                            .populate('chofer','nombre')
+                                            .populate('vehiculo', 'nombre');
+        if (conducc) {
+          conduccion = conducc.vehiculo.nombre;
+        }else{
+          conduccion = null;
+        }
+        
+      }else{
+        conduccion = null
+      }
       token= await generarToken.generarJWT(user._id);
+
       res.json({
         ok: true,
         msg: "Login correcto",
         user,
         token,
+        conduccion
       });
       break;
     case "cliente":
@@ -93,12 +110,27 @@ const postLogin = async (req = request, res = response) => {
 const getLogin = async(req=request, res=response)=>{
   const user = req.usuarioToken;
   const x ='x-token'
+  let conduccion;
+  if (user.rol === 'CHOFER_ROLE') {
+    const conducc = await Conduccion.findOne({chofer:user._id})
+                                        .populate('chofer','nombre')
+                                        .populate('vehiculo', 'nombre');
+    if (conducc) {
+      conduccion = conducc.vehiculo.nombre;
+    }else{
+      conduccion = null;
+    }
+    
+  }else{
+    conduccion = null
+  }
   const {token} = req.headers;
   res.json({
     ok:true,
     msg:'Token valido',
     user,
-    token
+    token,
+    conduccion
   })
 }
 module.exports = {

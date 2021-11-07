@@ -4,6 +4,7 @@ class Marcador {
     constructor(
         id ='',
         nombre='',
+        vehiculo='',
         lng,
         lat,
         color=''
