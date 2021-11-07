@@ -125,7 +125,6 @@ const getLogin = async(req=request, res=response)=>{
     conduccion = null
   }
   const {token} = req.headers;
-  const token = await generarToken.generarJWT(user._id);
   res.json({
     ok:true,
     msg:'Token valido',
