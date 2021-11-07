@@ -60,23 +60,31 @@ const validarJWTChofer =async (req= request, res = response, next)=>{
         const usuario = await Usuario.findOne({_id: id});
 
         if (!usuario) {
-            return res.status(401).json({
-                msg: 'Token no valido - usuario no existe en BD'
+            return res.json({
+                ok:false,
+                msg: 'Token no valido - usuario no existe en BD',
+                user:null,
+                token:null
             })
         }
         
         // Verificar si el uid tiene estado en tru
         if (!usuario.estado) {
-            return res.status(401).json({
-                msg: 'Token no valido - usuario con estado : false'
+            return res.json({
+                ok:false,
+                msg: 'Token no valido - usuario con estado : false',
+                user:null,
+                token:null
             })
         }
         req.usuarioToken = usuario;
         next();
     } catch (error) {
-        console.log(error);
-        res.status(401).json({
-            msg: 'Token no valido'
+        res.json({
+            ok:false,
+            msg: 'Token no valido',
+            user:null,
+            token:null
         })
     }
     
