@@ -1,15 +1,19 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { postLogin, getLogin } = require("../controllers/auth");
+const { postLogin, getLogin, getLoginContribuyente } = require("../controllers/auth");
 const { coleccionesPermitidas } = require("../helpers/db-validators");
 const {validarCampos} = require('../middlewares/validar-campos');
-const {validarJWTChofer}= require('../middlewares')
+const {validarJWTChofer, validarJWT, validarJWTContribuyente}= require('../middlewares')
 const router = new Router();
 
 router.get('/',[
     validarJWTChofer,
     validarCampos
-], getLogin)
+], getLogin);
+router.get('/cliente',[
+    validarJWTContribuyente,
+    validarCampos
+],getLoginContribuyente);
 router.post('/:coleccion',[
     validarCampos
 ], postLogin);

@@ -24,6 +24,7 @@ class Server{
         this.multasPath = '/api/multas';
         this.ubicacionPath = '/api/ubicacion';
         this.graficaPath = '/api/graficas';
+        this.validarPath = '/api/validar';
         this.pruebaPath = '/api/pruebas';
         this.httpServer = new http.Server(this.app);
         this.io = require('socket.io')(this.httpServer,{
@@ -94,6 +95,7 @@ class Server{
         this.app.use(this.multasPath, require('../routes/multas'));
         this.app.use(this.ubicacionPath, require('../routes/ubicacion'));
         this.app.use(this.graficaPath, require('../routes/graficas'));
+        this.app.use(this.validarPath, require('../routes/validar'));
         this.app.use(this.pruebaPath, require('../routes/prueba'));
     }
     listen(){

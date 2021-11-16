@@ -95,7 +95,7 @@ const postLogin = async (req = request, res = response) => {
             })
             
         }
-        token = await generarToken.generarJWT(cliente._id);
+        token = await generarToken.generarJWTContribuyentes(cliente._id);
         res.json({
             ok:true,
             msg:'Login correcto',
@@ -133,7 +133,20 @@ const getLogin = async(req=request, res=response)=>{
     conduccion
   })
 }
+
+const getLoginContribuyente =async (req = request, res = response)=>{
+  const cliente = req.clienteToken;
+  //const cliente = await Cliente.findOne({_id:contribuyente._id})
+  const token = await generarToken.generarJWTContribuyentes(cliente._id)
+  res.json({
+    ok:true,
+    msg:'Token valido',
+    cliente,
+    token
+  })
+}
 module.exports = {
   postLogin,
-  getLogin
+  getLogin,
+  getLoginContribuyente
 };
